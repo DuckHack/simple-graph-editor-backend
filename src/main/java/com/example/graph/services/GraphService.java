@@ -24,8 +24,10 @@ public class GraphService {
     }
 
     public void createGraph(String gotString) throws IncorrectFileContentException {
+        if (gotString == null) {
+            throw new IncorrectFileContentException("Passed string created from file is null");
+        }
         List<List<Integer>> graphAsIntegerInts = decodeString(gotString);
-        System.out.println(graphAsIntegerInts);
         Graph<Integer, DefaultEdge> createdGraph = getGraphObjFromStringLists(graphAsIntegerInts);
         GraphHolder.initGraphHolder(createdGraph);
     }
@@ -45,8 +47,7 @@ public class GraphService {
                     .map(list -> list.stream().map(Integer::parseInt).collect(Collectors.toList())).collect(Collectors.toList());
             removeUselessInfo(graphAsIntegerInts);
         } else {
-            System.out.println(String.format("Wrong format in graph:\n %s", gotString));
-            throw new IncorrectFileContentException(String.format("File siring has not only digits, file content: \n%s", graphAsStrings.toString()));
+            throw new IncorrectFileContentException(String.format("File string has not only digits, file content: \n%s", graphAsStrings.toString()));
         }
         return graphAsIntegerInts;
     }
@@ -58,7 +59,7 @@ public class GraphService {
         graphAsIntegerInts.forEach(l -> l.remove(vertexNeigNumPoss));
     }
 
-    private Graph<Integer, DefaultEdge> getGraphObjFromStringLists(List<List<Integer>> graphAsIntegerInts) {
+    private Graph<Integer, DefaultEdge> getGraphObjFromStringLists(List<List<Integer>> graphAsIntegerInts) throws IncorrectFileContentException {
         Graph<Integer, DefaultEdge> graph = new SimpleDirectedGraph<>(DefaultEdge.class);
         for (List<Integer> vertexesList : graphAsIntegerInts
                 ) {
@@ -71,10 +72,13 @@ public class GraphService {
         return graph;
     }
 
-    private void addEdges(Graph<Integer, DefaultEdge> graph, List<Integer> vertexes) {
+    private void addEdges(Graph<Integer, DefaultEdge> graph, List<Integer> vertexes) throws IncorrectFileContentException {
         Integer startVertex = vertexes.get(0);
         for (Integer vertex : vertexes.subList(1, vertexes.size())
                 ) {
+            if (!graph.containsVertex(vertex)) {
+                throw new IncorrectFileContentException(String.format("Input file doesn't contain such vertex: %d", vertex));
+            }
             graph.addEdge(startVertex, vertex);
         }
     }

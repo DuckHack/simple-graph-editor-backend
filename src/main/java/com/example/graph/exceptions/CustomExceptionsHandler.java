@@ -13,4 +13,19 @@ public class CustomExceptionsHandler {
     public final ResponseEntity IncorrectFileContentExceptionHandler() {
         return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
     }
+
+    @ExceptionHandler(CustomSubGraphEditingException.class)
+    public final ResponseEntity CustomSubGraphEditingExceptionHandler() {
+        return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(CustomEdgeEditionException.class)
+    public final ResponseEntity CustomEdgeEditionExceptionHandler() {
+        return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(CustomVertexEditionException.class)
+    public final ResponseEntity CustomVertexEditionExceptionHandler() {
+        return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+    }
 }
