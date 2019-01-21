@@ -28,4 +28,8 @@ public class CustomExceptionsHandler {
     public final ResponseEntity CustomVertexEditionExceptionHandler() {
         return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
     }
+    @ExceptionHandler(GraphHolderNotInitilizedException.class)
+    public final ResponseEntity GraphHolderNotInitilizedExceptionHandler() {
+        return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+    }
 }

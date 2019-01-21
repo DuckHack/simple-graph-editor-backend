@@ -1,9 +1,6 @@
 package com.example.graph.controllers;
 
-import com.example.graph.exceptions.CustomEdgeEditionException;
-import com.example.graph.exceptions.CustomSubGraphEditingException;
-import com.example.graph.exceptions.CustomVertexEditionException;
-import com.example.graph.exceptions.IncorrectFileContentException;
+import com.example.graph.exceptions.*;
 import com.example.graph.services.EdgeEditorService;
 import com.example.graph.services.GraphService;
 import com.example.graph.services.SubGraphsReplaceService;
@@ -35,7 +32,7 @@ public class GraphController {
     }
 
     @PostMapping("/")
-    public String createGraph(@RequestParam("file") MultipartFile file) throws IncorrectFileContentException {
+    public String createGraph(@RequestParam("file") MultipartFile file) throws IncorrectFileContentException, GraphHolderNotInitilizedException {
         String gotString;
         try {
             gotString = new String(file.getBytes(), StandardCharsets.UTF_8);
@@ -48,34 +45,34 @@ public class GraphController {
 
     @PostMapping("/addNode/{from}/{newNode}")
     public String addNode(@PathVariable(value = "from") Integer from,
-                          @PathVariable(value = "newNode") Integer newNode) throws CustomVertexEditionException {
+                          @PathVariable(value = "newNode") Integer newNode) throws CustomVertexEditionException, GraphHolderNotInitilizedException {
         vertexesEditorService.tryToAddNode(from, newNode);
         return GraphHolder.getInstance().getGraph().toString();
     }
 
     @PostMapping("/removeNode/{node}")
-    public String removeNode(@PathVariable(value = "node") Integer node) throws CustomVertexEditionException {
+    public String removeNode(@PathVariable(value = "node") Integer node) throws CustomVertexEditionException, GraphHolderNotInitilizedException {
         vertexesEditorService.tryToRemoveNode(node);
         return GraphHolder.getInstance().getGraph().toString();
     }
 
     @PostMapping("addEdge/{from}/{to}")
     public String addEdge(@PathVariable(value = "from") Integer from,
-                          @PathVariable(value = "to") Integer to) throws CustomEdgeEditionException {
+                          @PathVariable(value = "to") Integer to) throws CustomEdgeEditionException, GraphHolderNotInitilizedException {
         edgeEditorService.tryToAddEdge(from, to);
         return GraphHolder.getInstance().getGraph().toString();
     }
 
     @PostMapping("/removeEdge/{from}/{to}")
     public String removeEdge(@PathVariable(value = "from") Integer from,
-                             @PathVariable(value = "to") Integer to) throws CustomEdgeEditionException {
+                             @PathVariable(value = "to") Integer to) throws CustomEdgeEditionException, GraphHolderNotInitilizedException {
         edgeEditorService.tryToRemoveEdge(from, to);
         return GraphHolder.getInstance().getGraph().toString();
     }
 
     @PostMapping("/replaceSubs/{firstNode}/{secondNode}")
     public String replaceSubs(@PathVariable(value = "firstNode") Integer firstNode,
-                              @PathVariable(value = "secondNode") Integer secondNode) throws CustomSubGraphEditingException {
+                              @PathVariable(value = "secondNode") Integer secondNode) throws CustomSubGraphEditingException, GraphHolderNotInitilizedException {
         subGraphsReplaceService.tryToReplaceSubGraphs(firstNode, secondNode);
         return GraphHolder.getInstance().getGraph().toString();
     }

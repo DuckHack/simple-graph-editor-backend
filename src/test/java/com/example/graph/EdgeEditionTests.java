@@ -1,6 +1,7 @@
 package com.example.graph;
 
 import com.example.graph.exceptions.CustomEdgeEditionException;
+import com.example.graph.exceptions.GraphHolderNotInitilizedException;
 import com.example.graph.services.EdgeEditorService;
 import com.example.graph.utils.GraphHolder;
 import com.example.graph.utils.SimpleGraphBuilder;
@@ -26,14 +27,14 @@ public class EdgeEditionTests {
     }
 
     @Test(expected = CustomEdgeEditionException.class)
-    public void shouldNotAddEdgeWithNullPassedVertex() throws CustomEdgeEditionException {
+    public void shouldNotAddEdgeWithNullPassedVertex() throws CustomEdgeEditionException, GraphHolderNotInitilizedException {
         Integer from = null;
         Integer to = 10;
         edgeEditorService.tryToAddEdge(from, to);
     }
 
     @Test
-    public void shouldAddNewEdge() throws CustomEdgeEditionException {
+    public void shouldAddNewEdge() throws CustomEdgeEditionException, GraphHolderNotInitilizedException {
         Integer from = 7;
         Integer to = 10;
         edgeEditorService.tryToAddEdge(from, to);
@@ -41,28 +42,28 @@ public class EdgeEditionTests {
     }
 
     @Test(expected = CustomEdgeEditionException.class)
-    public void shouldNotAddSeparateSubGraph() throws CustomEdgeEditionException {
+    public void shouldNotAddSeparateSubGraph() throws CustomEdgeEditionException, GraphHolderNotInitilizedException {
         Integer from = 10;
         Integer to = 11;
         edgeEditorService.tryToAddEdge(from, to);
     }
 
     @Test(expected = CustomEdgeEditionException.class)
-    public void shouldNotDeleteEdgeWithNullVertex() throws CustomEdgeEditionException {
+    public void shouldNotDeleteEdgeWithNullVertex() throws CustomEdgeEditionException, GraphHolderNotInitilizedException {
         Integer from = null;
         Integer to = 10;
         edgeEditorService.tryToRemoveEdge(from, to);
     }
 
     @Test(expected = CustomEdgeEditionException.class)
-    public void shouldNotDeleteNotExistingEdge() throws CustomEdgeEditionException {
+    public void shouldNotDeleteNotExistingEdge() throws CustomEdgeEditionException, GraphHolderNotInitilizedException {
         Integer from = 12;
         Integer to = 10;
         edgeEditorService.tryToRemoveEdge(from, to);
     }
 
     @Test(expected = CustomEdgeEditionException.class)
-    public void shouldNotDeleteSingleEdgeForVertex() throws CustomEdgeEditionException {
+    public void shouldNotDeleteSingleEdgeForVertex() throws CustomEdgeEditionException, GraphHolderNotInitilizedException {
         Integer from = 4;
         Integer to = 9;
         edgeEditorService.tryToRemoveEdge(from, to);

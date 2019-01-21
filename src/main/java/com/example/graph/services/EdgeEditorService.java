@@ -1,6 +1,7 @@
 package com.example.graph.services;
 
 import com.example.graph.exceptions.CustomEdgeEditionException;
+import com.example.graph.exceptions.GraphHolderNotInitilizedException;
 import com.example.graph.utils.GraphHolder;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EdgeEditorService {
-    public void tryToAddEdge(Integer from, Integer to) throws CustomEdgeEditionException {
+    public void tryToAddEdge(Integer from, Integer to) throws CustomEdgeEditionException, GraphHolderNotInitilizedException {
         if (from == null || to == null) {
             throw new CustomEdgeEditionException("Passed values of <from> or <to> is null");
         }
@@ -26,7 +27,7 @@ public class EdgeEditorService {
         graph.addEdge(from, to);
     }
 
-    public void tryToRemoveEdge(Integer from, Integer to) throws CustomEdgeEditionException {
+    public void tryToRemoveEdge(Integer from, Integer to) throws CustomEdgeEditionException, GraphHolderNotInitilizedException {
         if (from == null || to == null) {
             throw new CustomEdgeEditionException("Passed values of <from> or <to> is null");
         }

@@ -1,6 +1,7 @@
 package com.example.graph;
 
 import com.example.graph.exceptions.CustomVertexEditionException;
+import com.example.graph.exceptions.GraphHolderNotInitilizedException;
 import com.example.graph.services.VertexesEditorService;
 import com.example.graph.utils.GraphHolder;
 import com.example.graph.utils.SimpleGraphBuilder;
@@ -27,7 +28,7 @@ public class VertexEditionTests {
     }
 
     @Test
-    public void shouldAddVertex() throws CustomVertexEditionException {
+    public void shouldAddVertex() throws CustomVertexEditionException, GraphHolderNotInitilizedException {
         Integer from = 6;
         Integer newNode = 10;
 
@@ -38,7 +39,7 @@ public class VertexEditionTests {
     }
 
     @Test(expected = CustomVertexEditionException.class)
-    public void shouldNotAddNullVertex() throws CustomVertexEditionException {
+    public void shouldNotAddNullVertex() throws CustomVertexEditionException, GraphHolderNotInitilizedException {
         Integer from = 6;
         Integer newNode = null;
 
@@ -46,20 +47,20 @@ public class VertexEditionTests {
     }
 
     @Test
-    public void shouldRemoveVertex() throws CustomVertexEditionException {
+    public void shouldRemoveVertex() throws CustomVertexEditionException, GraphHolderNotInitilizedException {
         Integer removeNode = 9;
         vertexesEditorService.tryToRemoveNode(removeNode);
         assertFalse(GraphHolder.getInstance().getGraph().containsVertex(removeNode));
     }
 
     @Test(expected = CustomVertexEditionException.class)
-    public void shouldNotRemoveVertexWhichIsNotLeaf() throws CustomVertexEditionException {
+    public void shouldNotRemoveVertexWhichIsNotLeaf() throws CustomVertexEditionException, GraphHolderNotInitilizedException {
         Integer removeNode = 4;
         vertexesEditorService.tryToRemoveNode(removeNode);
     }
 
     @Test(expected = CustomVertexEditionException.class)
-    public void shouldNotRemoveNullVertex() throws CustomVertexEditionException {
+    public void shouldNotRemoveNullVertex() throws CustomVertexEditionException, GraphHolderNotInitilizedException {
         Integer removeNode = null;
         vertexesEditorService.tryToRemoveNode(removeNode);
     }

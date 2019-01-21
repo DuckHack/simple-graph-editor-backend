@@ -1,5 +1,6 @@
 package com.example.graph;
 
+import com.example.graph.exceptions.GraphHolderNotInitilizedException;
 import com.example.graph.exceptions.IncorrectFileContentException;
 import com.example.graph.services.GraphService;
 import com.example.graph.strategyPattern.SimpleGraphValidator;
@@ -41,7 +42,7 @@ public class GraphBuildingTests {
     }
 
     @Test
-    public void shouldBuildGraphFromCorrectFile() throws IncorrectFileContentException {
+    public void shouldBuildGraphFromCorrectFile() throws IncorrectFileContentException, GraphHolderNotInitilizedException {
         String path = "test_graph.txt";
         String testGraph = GraphHolder.getInstance().getGraph().toString();
         String gotString = getGraphFileAsString(path);
@@ -111,7 +112,6 @@ public class GraphBuildingTests {
                 stringBuilder.append(System.getProperty("line.separator"));
                 line = bufferedReader.readLine();
             } while (line != null);
-            System.out.println(stringBuilder.toString());
             gotString = stringBuilder.toString();
         } catch (Exception e) {
             System.out.println("Error reading from fileReader");

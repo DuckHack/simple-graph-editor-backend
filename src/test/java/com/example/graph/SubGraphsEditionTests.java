@@ -1,6 +1,7 @@
 package com.example.graph;
 
 import com.example.graph.exceptions.CustomSubGraphEditingException;
+import com.example.graph.exceptions.GraphHolderNotInitilizedException;
 import com.example.graph.services.SubGraphsReplaceService;
 import com.example.graph.utils.GraphHolder;
 import com.example.graph.utils.SimpleGraphBuilder;
@@ -32,28 +33,28 @@ public class SubGraphsEditionTests {
     }
 
     @Test(expected = CustomSubGraphEditingException.class)
-    public void shouldNotReplaceWithNullArgs() throws CustomSubGraphEditingException {
+    public void shouldNotReplaceWithNullArgs() throws CustomSubGraphEditingException, GraphHolderNotInitilizedException {
         Integer firstNode = null;
         Integer secondNode = 9;
         subGraphsReplaceService.tryToReplaceSubGraphs(firstNode, secondNode);
     }
 
     @Test(expected = CustomSubGraphEditingException.class)
-    public void shouldNotReplaceWithPassedRootNode() throws CustomSubGraphEditingException {
+    public void shouldNotReplaceWithPassedRootNode() throws CustomSubGraphEditingException, GraphHolderNotInitilizedException {
         Integer firstNode = 0;
         Integer secondNode = 1;
         subGraphsReplaceService.tryToReplaceSubGraphs(firstNode, secondNode);
     }
 
     @Test(expected = CustomSubGraphEditingException.class)
-    public void shouldNotReplaceWithMutualParents() throws CustomSubGraphEditingException {
+    public void shouldNotReplaceWithMutualParents() throws CustomSubGraphEditingException, GraphHolderNotInitilizedException {
         Integer firstNode = 1;
         Integer secondNode = 2;
         subGraphsReplaceService.tryToReplaceSubGraphs(firstNode, secondNode);
     }
 
     @Test
-    public void shouldReplaceSubGraphs() throws CustomSubGraphEditingException {
+    public void shouldReplaceSubGraphs() throws CustomSubGraphEditingException, GraphHolderNotInitilizedException {
         List<Integer> vertexes = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
         Graph<Integer, DefaultEdge> graph = new SimpleDirectedGraph<>(DefaultEdge.class);
         graph.addVertex(vertexes.get(0));

@@ -1,5 +1,6 @@
 package com.example.graph.utils;
 
+import com.example.graph.exceptions.GraphHolderNotInitilizedException;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
 
@@ -25,7 +26,10 @@ public class GraphHolder {
         return graphHolder;
     }
 
-    public Graph<Integer, DefaultEdge> getGraph() {
+    public Graph<Integer, DefaultEdge> getGraph() throws GraphHolderNotInitilizedException{
+        if(holdedGraph == null){
+            throw new GraphHolderNotInitilizedException("GraphHolder not inited");
+        }
         return holdedGraph;
     }
 
