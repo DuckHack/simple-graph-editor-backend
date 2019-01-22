@@ -34,9 +34,9 @@ public class GraphService {
 
     private List<List<Integer>> decodeString(String gotString) throws IncorrectFileContentException {
         List<List<Integer>> graphAsIntegerInts;
-
+        String lineSeparator = "\n";
         //extract file to List of String lists
-        List<List<String>> graphAsStrings = Arrays.stream(gotString.split(System.getProperty("line.separator")))
+        List<List<String>> graphAsStrings = Arrays.stream(gotString.split(lineSeparator))
                 .map(line -> line.split("\\s+"))
                 .map(Arrays::asList)
                 .collect(Collectors.toList());

@@ -26,8 +26,8 @@ public class GraphHolder {
         return graphHolder;
     }
 
-    public Graph<Integer, DefaultEdge> getGraph() throws GraphHolderNotInitilizedException{
-        if(holdedGraph == null){
+    public Graph<Integer, DefaultEdge> getGraph() throws GraphHolderNotInitilizedException {
+        if (holdedGraph == null) {
             throw new GraphHolderNotInitilizedException("GraphHolder not inited");
         }
         return holdedGraph;

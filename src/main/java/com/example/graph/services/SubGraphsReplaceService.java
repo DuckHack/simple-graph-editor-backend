@@ -68,11 +68,11 @@ public class SubGraphsReplaceService {
         return GraphHolder.getInstance().getGraph().incomingEdgesOf(node);
     }
 
-    private Integer getSource(DefaultEdge defaultEdge) throws  GraphHolderNotInitilizedException{
+    private Integer getSource(DefaultEdge defaultEdge) throws GraphHolderNotInitilizedException {
         return GraphHolder.getInstance().getGraph().getEdgeSource(defaultEdge);
     }
 
-    private void replaceSubGraphs(Integer firstNode, Integer secondNode) throws  GraphHolderNotInitilizedException{
+    private void replaceSubGraphs(Integer firstNode, Integer secondNode) throws GraphHolderNotInitilizedException {
         Graph<Integer, DefaultEdge> graph = GraphHolder.getInstance().getGraph();
         List<DefaultEdge> firstNodeIncomeEdges = new ArrayList<>(graph.incomingEdgesOf(firstNode));
         List<DefaultEdge> secondNodeIncomeEdges = new ArrayList<>(graph.incomingEdgesOf(secondNode));
@@ -80,7 +80,7 @@ public class SubGraphsReplaceService {
         replaceEdges(secondNode, secondNodeIncomeEdges, firstNodeIncomeEdges);
     }
 
-    private void replaceEdges(Integer node, List<DefaultEdge> actualEdges, List<DefaultEdge> newEdges) throws GraphHolderNotInitilizedException{
+    private void replaceEdges(Integer node, List<DefaultEdge> actualEdges, List<DefaultEdge> newEdges) throws GraphHolderNotInitilizedException {
         Graph<Integer, DefaultEdge> graph = GraphHolder.getInstance().getGraph();
 
         for (DefaultEdge addEdge : newEdges

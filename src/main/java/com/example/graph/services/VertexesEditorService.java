@@ -30,11 +30,11 @@ public class VertexesEditorService {
 
         Graph<Integer, DefaultEdge> graph = GraphHolder.getInstance().getGraph();
 
-        if(graph.outDegreeOf(node) == 0){
+        if (graph.outDegreeOf(node) == 0) {
             Set<DefaultEdge> incomingEdgesOf = new HashSet<>(graph.incomingEdgesOf(node));
-            graph.removeAllEdges( incomingEdgesOf );
+            graph.removeAllEdges(incomingEdgesOf);
             graph.removeVertex(node);
-        }else {
+        } else {
             throw new CustomVertexEditionException(String.format("Passed node:%d is not a leaf", node));
 
         }

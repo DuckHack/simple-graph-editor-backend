@@ -6,11 +6,10 @@ import com.example.graph.services.GraphService;
 import com.example.graph.services.SubGraphsReplaceService;
 import com.example.graph.services.VertexesEditorService;
 import com.example.graph.utils.GraphHolder;
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/graph")
@@ -32,14 +31,11 @@ public class GraphController {
     }
 
     @PostMapping("/")
-    public String createGraph(@RequestParam("file") MultipartFile file) throws IncorrectFileContentException, GraphHolderNotInitilizedException {
-        String gotString;
-        try {
-            gotString = new String(file.getBytes(), StandardCharsets.UTF_8);
-        } catch (Exception e) {
-            throw new IncorrectFileContentException("Error while multipart file decoding");
-        }
-        graphService.createGraph(gotString);
+    public String createGraph(@RequestBody String graphJson) throws IncorrectFileContentException, GraphHolderNotInitilizedException {
+        String path = "$.file";
+        DocumentContext documentContext = JsonPath.parse(graphJson);
+        String graphString = documentContext.read(path, String.class);
+        graphService.createGraph(graphString);
         return GraphHolder.getInstance().getGraph().toString();
     }
 

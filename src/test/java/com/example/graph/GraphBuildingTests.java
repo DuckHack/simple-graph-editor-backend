@@ -42,7 +42,7 @@ public class GraphBuildingTests {
     }
 
     @Test
-    public void shouldBuildGraphFromCorrectFile() throws IncorrectFileContentException, GraphHolderNotInitilizedException {
+    public void shouldBuildGraphFromCorrectString() throws IncorrectFileContentException, GraphHolderNotInitilizedException {
         String path = "test_graph.txt";
         String testGraph = GraphHolder.getInstance().getGraph().toString();
         String gotString = getGraphFileAsString(path);
